@@ -22,10 +22,9 @@ See section [Installation/Recommended](https://github.com/anchore/grype) for mor
 #### Scan result report as job artifact:
 <img src="images/4.png" alt="Grype plugin" />
 
-#### Scan result report:
+#### Scan results:
 <img src="images/5.png" alt="Grype plugin" />
 
-#### Console output:
 <img src="images/6.png" alt="Grype plugin" />
 
 ### Usage in a pipeline:
