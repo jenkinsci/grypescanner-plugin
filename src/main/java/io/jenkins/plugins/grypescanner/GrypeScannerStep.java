@@ -2,6 +2,7 @@ package io.jenkins.plugins.grypescanner;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
@@ -19,12 +20,13 @@ import hudson.model.TaskListener;
 import hudson.tasks.ArtifactArchiver;
 import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.Builder;
+import io.jenkins.plugins.grypescanner.Finding.SEVERITY;
 import jenkins.tasks.SimpleBuildStep;
 import net.sf.json.JSONObject;
 
 public class GrypeScannerStep extends Builder implements SimpleBuildStep
 {
-  private static final String SCAN_TARGET_DEFAULT = "dir:./";
+  private static final String SCAN_TARGET_DEFAULT = "dir:/";
   private static final String REP_NAME_DEFAULT = "grypeReport_${JOB_NAME}_${BUILD_NUMBER}.txt";
 
   private String scanDest;
@@ -100,10 +102,21 @@ public class GrypeScannerStep extends Builder implements SimpleBuildStep
             .cmds(grypeCmd, scanDestresolved, "-o", "template", "-t", templateFile.toURI().getPath(),
                 "--file", resultReport.toURI().getPath())
             .envs(env).stdout(listener).stderr(listener.getLogger()).pwd(workspace).join();
-    listener.getLogger().println("return value: " + ret);
+    listener.getLogger().println("grype return value: " + ret);
 
     ArtifactArchiver artifactArchiver = new ArtifactArchiver(repNameResolved);
     artifactArchiver.perform(run, workspace, env, launcher, listener);
+    String text = resultReport.readToString();
+    Findings findings = new Findings(text);
+    if (!findings.getFindings().isEmpty())
+    {
+      listener.getLogger().println("-------------------------");
+      for (SEVERITY sev : SEVERITY.values())
+      {
+        listener.getLogger().println(String.format("%-12s%8d%5s","| " + sev.toString() + ": ",findings.getFindings().getOrDefault(sev, new ArrayList<Finding>()).size()," |"));
+      }
+      listener.getLogger().println("-------------------------");
+    }
   }
 
   public String getScanDest()
