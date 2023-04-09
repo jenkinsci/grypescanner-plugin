@@ -110,12 +110,12 @@ public class GrypeScannerStep extends Builder implements SimpleBuildStep
     Findings findings = new Findings(text);
     if (!findings.getFindings().isEmpty())
     {
-      listener.getLogger().println("-------------------------");
+      listener.getLogger().println("---------------------------");
       for (SEVERITY sev : SEVERITY.values())
       {
-        listener.getLogger().println(String.format("%-12s%8d%5s","| " + sev.toString() + ": ",findings.getFindings().getOrDefault(sev, new ArrayList<Finding>()).size()," |"));
+        listener.getLogger().println(String.format("%-14s%8d%5s","| " + sev.toString() + ": ",findings.getFindings().getOrDefault(sev, new ArrayList<Finding>()).size()," |"));
       }
-      listener.getLogger().println("-------------------------");
+      listener.getLogger().println("---------------------------");
     }
   }
 
