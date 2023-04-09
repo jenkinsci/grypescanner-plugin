@@ -6,7 +6,7 @@ public class Finding implements Serializable
 {
   private static final long serialVersionUID = 1L;
   
-  enum SEVERITY{Critical, High, Medium, Low };
+  enum SEVERITY{Critical, High, Medium, Low, Negligible };
   private String packageName;
   private String versionInstalled;
   private String vulnId;
@@ -65,7 +65,15 @@ public class Finding implements Serializable
    packageName = props[0].replaceAll("\"", "");
    versionInstalled = props[1].replaceAll("\"", "");
    vulnId = props[2].replaceAll("\"", "");
-   severity = SEVERITY.valueOf(props[3].replaceAll("\"", ""));
+   try
+  {
+    severity = SEVERITY.valueOf(props[3].replaceAll("\"", ""));
+  }
+  catch (Exception e)
+  {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+  }
    locations = props[4].replaceAll("\"", "");
   }
 
