@@ -102,7 +102,15 @@ public class GrypeScannerStep extends Builder implements SimpleBuildStep
             .cmds(grypeCmd, scanDestresolved, "-o", "template", "-t", templateFile.toURI().getPath(),
                 "--file", resultReport.toURI().getPath())
             .envs(env).stdout(listener).stderr(listener.getLogger()).pwd(workspace).join();
-    listener.getLogger().println("grype return value: " + ret);
+    listener.getLogger().println("First (backward compatibility) grype run return value: " + ret);
+
+    FilePath gypeJsonRep = workspace.child("grype-report.json");
+    listener.getLogger().println("\nGrype second run, generating report for Warnings Next Generation Plugin ");
+    ret = launcher.launch()
+            .cmds(grypeCmd, scanDestresolved, "-o", "json",
+                "--file", gypeJsonRep.toURI().getPath())
+            .envs(env).stdout(listener).stderr(listener.getLogger()).pwd(workspace).join();
+    listener.getLogger().println("Second grype run return value: " + ret);
 
     ArtifactArchiver artifactArchiver = new ArtifactArchiver(repNameResolved);
     artifactArchiver.perform(run, workspace, env, launcher, listener);
