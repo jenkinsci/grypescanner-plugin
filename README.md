@@ -49,6 +49,8 @@ pipeline
 }
 ```
 
+#### [Warnings Next Generation plugin](https://plugins.jenkins.io/warnings-ng/) is supported from the version 1.7.
+
 ## LICENSE
 
 Licensed under MIT, see [LICENSE](LICENSE.md)
