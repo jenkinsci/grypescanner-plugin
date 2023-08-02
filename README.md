@@ -49,7 +49,9 @@ pipeline
 }
 ```
 
-#### [Warnings Next Generation plugin](https://plugins.jenkins.io/warnings-ng/) is supported from the version 1.7.
+
+#### [Warnings Next Generation plugin (required version: v10.3.0 or above)](https://plugins.jenkins.io/warnings-ng/) is supported from the version 1.7.
+
 
 ## LICENSE
 
