@@ -38,7 +38,7 @@ See section [Installation/Recommended](https://github.com/anchore/grype) for mor
   stages {
      stage('Grype scan') {
       steps {
-       grypeScan scanDest: 'dir:/tmp', repName: 'myScanResult.txt', autoInstall:true
+       grypeScan scanDest: 'dir:/tmp/grpc', repName: 'myScanResult.txt', autoInstall:true
       }
     }
   }
@@ -46,14 +46,21 @@ See section [Installation/Recommended](https://github.com/anchore/grype) for mor
 post {
     always {
         recordIssues(
-          tools: [grype()]
+          tools: [grype()],
+          aggregatingResults: true,
+          failedNewAll: 1, //fail if >=1 new issues
+          failedTotalHigh: 20, //fail if >=20 HIGHs
+          failedTotalAll : 100, //fail if >=100 issues in total
+          filters: [
+            excludeType('CVE-2023-2976'),
+            excludeType('CVE-2012-17488'),
+          ],
+          //failOnError: true
         )
     }
   }
 }
 ```
-
-Here are some examples:
 
 See https://www.jenkins.io/doc/pipeline/steps/warnings-ng/ for more advanced features.
 
