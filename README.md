@@ -24,7 +24,7 @@ See section [Installation/Recommended](https://github.com/anchore/grype) for mor
 <img src="images/grypeWarnings.png" alt="Grype plugin" />
 
 #### Scan result report as job artifact:
-<img src="images/4.png" alt="Grype plugin" />
+<img src="images/attachedReport.png" alt="Grype plugin" />
 
 #### Scan results:
 <img src="images/5.png" alt="Grype plugin" />
