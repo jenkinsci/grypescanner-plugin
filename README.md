@@ -31,28 +31,31 @@ See section [Installation/Recommended](https://github.com/anchore/grype) for mor
 
 <img src="images/6.png" alt="Grype plugin" />
 
-### Usage in a pipeline:
+### Usage in a pipeline, with Warnings Next Generation plugin (minimal version: 10.3.0):
 ```groovy
-pipeline
-{
-  agent any
-  options
-  {
-    skipStagesAfterUnstable()
-  }
-  stages
-  {
-    stage('Build')
-    {
-      steps
-      {
-        grypeScan scanDest: 'dir:/tmp', repName: 'myScanResult.txt', autoInstall:true
+ pipeline {
+  agent {label ''}
+  stages {
+     stage('Grype scan') {
+      steps {
+       grypeScan scanDest: 'dir:/tmp', repName: 'myScanResult.txt', autoInstall:true
       }
+    }
+  }
+
+post {
+    always {
+        recordIssues(
+          tools: [grype()]
+        )
     }
   }
 }
 ```
 
+Here are some examples:
+
+See https://www.jenkins.io/doc/pipeline/steps/warnings-ng/ for more advanced features.
 
 #### Acknowledgments
 Thanks to Patrick Röder and Thomas Spicker for contributions and creative input!
