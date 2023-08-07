@@ -4,7 +4,7 @@
 
 [Grype](https://github.com/anchore/grype) is a vulnerability scanner for container images and filesystems.
 This jenkins plugin scans a given target and saves a report as job artifact.
-Starting from version 1.7, the grype Scanner Plugin can be integrated with the [Warnings Next Generation plugin](https://plugins.jenkins.io/warnings-ng/) (minimal version: 10.3.0).
+Starting from version 1.7, the grype plugin can be integrated with the [Warnings Next Generation plugin](https://plugins.jenkins.io/warnings-ng/) (minimal version: 10.3.0).
 
 <img src="images/grypeRes.png" alt="Grype plugin" />
 
