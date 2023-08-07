@@ -19,6 +19,9 @@ See section [Installation/Recommended](https://github.com/anchore/grype) for mor
 #### Possible scan targets:
 <img src="images/3.png" alt="Grype plugin" />
 
+#### Configure [Warnings Next Generation plugin](https://plugins.jenkins.io/warnings-ng/):
+<img src="images/grypeWarnings.png" alt="Grype plugin" />
+
 #### Scan result report as job artifact:
 <img src="images/4.png" alt="Grype plugin" />
 
